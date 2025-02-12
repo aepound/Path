@@ -409,12 +409,24 @@ classdef FilePath < matlab.mixin.CustomDisplay
       result = objects.selectLogical(@(obj) isfile(obj.string) || isfolder(obj.string));
     end
 
+    function result = isfile(objects)
+      result = objects.isFile();
+    end
+
     function result = isFile(objects)
       result = objects.selectLogical(@(obj) isfile(obj.string));
     end
 
+    function result = isfolder(objects)
+      result = objects.isDir();
+    end
     function result = isDir(objects)
       result = objects.selectLogical(@(obj) isfolder(obj.string));
+    end
+    function [filepath,name,ext] = fileparts(objects)
+      filepath = objects.parent;
+      name = objects.stem;
+      ext = objects.extension;
     end
 
     function mustExist(objects)
